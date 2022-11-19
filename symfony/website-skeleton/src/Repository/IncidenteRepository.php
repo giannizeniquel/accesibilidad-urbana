@@ -57,12 +57,12 @@ class IncidenteRepository extends ServiceEntityRepository
     public function findAllSector($value)
     {
         return $this->createQueryBuilder('i')
-            /* ->join('i.calles','calle')
+            ->join('i.calles','calle')
             ->join('calle.calleSectors','cs')
             ->join('cs.idSector','sect')
             ->andWhere('sect.id = :val')
             ->andWhere('i.altura BETWEEN sect.alturaInicial AND sect.alturaFinal')
-            ->setParameter('val', $value) */
+            ->setParameter('val', $value)
             ->getQuery()
             ->getResult()
         ;

@@ -44,6 +44,10 @@ class Sector
         $this->calleSectors = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->nombre;
+    }
     public function getId(): ?int
     {
         return $this->id;

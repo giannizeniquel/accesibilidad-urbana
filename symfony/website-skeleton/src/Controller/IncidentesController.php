@@ -22,12 +22,10 @@ class IncidentesController extends AbstractController
      */
     public function index(Request $request)
     {
-        /* dump($request);
-        die; */
         if($request->query->has('incidencias')){
-            $incidencias = $request->query->get('incidencias');
+            $incidencias = $this->entityManager->getRepository(Incidente::class)->findAllSector($request->query->get('incidencias'));
         }else{
-            $incidencias = $this->entityManager->getRepository(Incidente::class)->findAllSector(1);
+            $incidencias = $this->entityManager->getRepository(Incidente::class)->findAll();
         }
         
         return $this->render('index.html.twig', [
@@ -41,25 +39,24 @@ class IncidentesController extends AbstractController
      */
     public function recibirReclamo(Request $request){
         
+        
         if ( $request->request->has('incidente')){
             $form = $request->request->get('incidente');
             $calle = $this->entityManager->getRepository(Calle::class)->find($form['calle']);
             $incidente = $this->entityManager->getRepository(Incidente::class)->getExiste($calle->getId(),$form['altura']);
             if($incidente){
                 $incidente->setIncidencia($incidente->getIncidencia()+1);
-            }
-            else{
+            }else{
                 $incidente = new Incidente;
-                
                 $incidente->setCalles($calle);
                 $incidente->setMotivo($form['motivo']);
-                $incidente->getTemporalidad($form['temporalidad']);
+                $incidente->setTemporalidad($form['tiempo']);
                 $incidente->setAltura($form['altura']);
                 $incidente->setIncidencia(1);
             }
             $this->entityManager->persist($incidente);
             $this->entityManager->flush();
-            
+            return $this->redirectToRoute('app_index');
         }
     }
 
@@ -77,7 +74,7 @@ class IncidentesController extends AbstractController
      */
     public function sector(Request $request,$sector)
     {
-        $incidencias = $this->entityManager->getRepository(Incidente::class)->findAllSector($sector);
+        $incidencias = $sector;
         return $this->redirectToRoute('app_index', array(
             'incidencias' => $incidencias,
         ));

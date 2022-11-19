@@ -3,14 +3,15 @@
 
 <head>
     <meta charset="utf-8">
-    <title>FitApp - Mobile App HTML Template</title>
+    <title>AccesAR</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
+    <link href="img/Logo_recortado.png" rel="icon">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -89,34 +90,71 @@
                     <div class="navbar-nav mx-auto py-0">
                         <ul>
                             <li class = "item" >
-                                <a href="#home" class="nav-item active">Lista</a>
+                                <a href="{{path('app_index')}}" class="nav-item active">Lista</a>
                             </li>
                             <li class = "item" >
                                 <a href="#contact" class="nav-item">Reportar</a>
                             </li>
                             <li class = "item">
                                 <select class="form-control" id="incidente" placeholder="Incidente" style="margin-top:5%; background-color: #A152FF; color: #ffff">
-                                    <option value="0">Sectores</option>
-                                    <option value="1">Marco Centro</option>
-                                    <option value="2">Zona Norte</option>
-                                    <option value="3">Zona Sur</option>
-                                    <option value="4">Zona Oeste</option>
-                                    <option value="6">Zona Este</option>
+                                    <option value="">Sectores</option>
+                                    <option value="1">Centro</option>
+                                    <option value="2">Marco Centro</option>
+                                    <option value="3">Zona Norte</option>
+                                    <option value="4">Zona Sur</option>
+                                    <option value="5">Zona Este</option>
+                                    <option value="6">Zona Oeste</option>
                                 </select>
                             </li>
                         </ul>
                     </div>
-                    <a href="#" class="btn btn-primary-gradient rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Sobre Nosotros</a>
+                    <a href="#nosotros" class="btn btn-primary-gradient rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Sobre Nosotros</a>
                 </div>
             </nav>
-            
-
-            <div class="container-xxl bg-primary hero-header">
+        </div>
+        <div class="container-xxl bg-primary hero-header">
+                <div class="container px-lg-5">
+                    <div class="row g-5">
+                        <div class="col-lg-12 text-center text-lg-start">
+                            <div class="form-group">
+                                <div class="form-widget">
+                                    <input class="form-control" type="search" name="query" placeholder="Ingrese Calle">
+                                    <button id ="search" class="btn btn-primary">Buscar Calle</button>
+                                </div>
+						    </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
                 <div class="container px-lg-5">
                     <div class="row g-5">
                         <div class="col-lg-8 text-center text-lg-start">
-                            <h1 class="text-white mb-4 animated slideInDown">The Revolutionary App That Helps To Control Your Own Fitness</h1>
-                            <p class="text-white pb-3 animated slideInDown">Tempor rebum no at dolore lorem clita rebum rebum ipsum rebum stet dolor sed justo kasd. Ut dolor sed magna dolor sea diam. Sit diam sit justo amet ipsum vero ipsum clita lorem</p>
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Sector</th>
+                                        <th scope="col">Calle</th>
+                                        <th scope="col">Altura</th>
+                                        <th scope="col">Incidencia</th>
+                                        <th scope="col">Temparalidad</th>
+                                        <th scope="col">Motivo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for incidente in incidencias %}
+                                            <tr>
+                                    <td style="text-align: center;">{{incidente.getSector()}}</td>
+                                    <td style="text-align: center;">{{incidente.calles}}</td>
+                                    <td style="text-align: center;">{{incidente.altura}}</td>
+                                    <td style="text-align: center;">{{incidente.incidencia}}</td>
+                                    <td style="text-align: center;">{{incidente.getStringTemporalidad()}}</td>
+                                    <td style="text-align: center;">{{incidente.getStringMotivo()}}</td>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                         <div class="col-lg-4 d-flex justify-content-center justify-content-lg-end wow fadeInUp" data-wow-delay="0.3s">
                             <div class="owl-carousel screenshot-carousel">
@@ -128,7 +166,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         <!-- Navbar & Hero End -->
 
 
@@ -145,12 +182,11 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="wow fadeInUp" data-wow-delay="0.3s">
-                            <p class="text-center mb-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur minus libero, quaerat officia optio, molestiae quis in, sed omnis alias vel magnam consequatur aut deleniti. Beatae enim quo recusandae libero! <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
-                            <form>
+                            <form id="aprobarPorLista" name="aprobarPorLista" action="{{ path('recibirReclamo') }}" method="POST">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="number" class="form-control" id="dni" placeholder="DNI" required required>
+                                            <input type="number" class="form-control" id="dni" placeholder="DNI" name='dni' required>
                                             <label for="name">DNI:</label>
                                         </div>
                                     </div>
@@ -162,28 +198,21 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <select class="form-control" id="calle" placeholder="Calle:" required name="[incidente][calle]">
+                                            <select class="form-control" id="calle" placeholder="Calle:" required name="incidente[calle]">
                                                 <option value="">Seleccione calle</option>
-                                                <option value="1">Av. 9 de Julio</option>
-                                                <option value="2">Av. Sarmiento</option>
-                                                <option value="3">Av. Alberdi</option>
-                                                <option value="4">Av. 25 de Mayo</option>
-                                                <option value="6">Hipolito Irigoyen</option>
-                                                <option value="7">Don Bosco</option>
-                                                <option value="8">Arturo Illia</option>
                                             </select>
                                             <label for="name">Calle:</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="number" class="form-control" id="calleAltura" placeholder="Altura" required name="[incidente][altura]">
+                                            <input type="number" class="form-control" id="calleAltura" placeholder="Altura" required name="incidente[altura]">
                                             <label for="calle numero">Altura:</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <select class="form-control" id="incidente" placeholder="Incidente" required name="[incidente][motivo]">
+                                            <select class="form-control" id="incidente" placeholder="Incidente" required name="incidente[motivo]">
                                                 <option value="">Seleccione incidente</option>
                                                 <option value="1">Bacheo</option>
                                                 <option value="2">Protesta</option>
@@ -197,7 +226,7 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <select class="form-control" id="incidente" placeholder="Incidente" required name="[incidente][tiempo]">
+                                            <select class="form-control" id="incidente" placeholder="Incidente" required name="incidente[tiempo]">
                                                 <option value="">Tiempo estimado</option>
                                                 <option value="1">Temporal (horas)</option>
                                                 <option value="2">Semi Temporal (dias)</option>
@@ -222,72 +251,22 @@
                 </div>
             </div>
         </div>
-        <!-- Contact End -->
-        <!-- Contact End -->
-        
-
         <!-- Footer Start -->
         <div class="container-fluid bg-primary text-light footer wow fadeIn" data-wow-delay="0.1s">
             <div class="container py-5 px-lg-5">
                 <div class="row g-5">
                     <div class="col-md-6 col-lg-3">
-                        <h4 class="text-white mb-4">Address</h4>
-                        <p><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                        <p><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                        <p><i class="fa fa-envelope me-3"></i>info@example.com</p>
-                        <div class="d-flex pt-2">
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-instagram"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <h4 class="text-white mb-4">Quick Link</h4>
-                        <a class="btn btn-link" href="">About Us</a>
-                        <a class="btn btn-link" href="">Contact Us</a>
-                        <a class="btn btn-link" href="">Privacy Policy</a>
-                        <a class="btn btn-link" href="">Terms & Condition</a>
-                        <a class="btn btn-link" href="">Career</a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <h4 class="text-white mb-4">Popular Link</h4>
-                        <a class="btn btn-link" href="">About Us</a>
-                        <a class="btn btn-link" href="">Contact Us</a>
-                        <a class="btn btn-link" href="">Privacy Policy</a>
-                        <a class="btn btn-link" href="">Terms & Condition</a>
-                        <a class="btn btn-link" href="">Career</a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <h4 class="text-white mb-4">Newsletter</h4>
-                        <p>Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulpu</p>
-                        <div class="position-relative w-100 mt-3">
-                            <input class="form-control border-0 rounded-pill w-100 ps-4 pe-5" type="text" placeholder="Your Email" style="height: 48px;">
-                            <button type="button" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"><i class="fa fa-paper-plane text-primary-gradient fs-4"></i></button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
             <div class="container px-lg-5">
                 <div class="copyright">
+                    <a id="nosotros">
                     <div class="row">
-                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved. 
-							
-							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-							Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
-                            </br>
-                            Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                        </div>
-                        <div class="col-md-6 text-center text-md-end">
-                            <div class="footer-menu">
-                                <a href="">Home</a>
-                                <a href="">Cookies</a>
-                                <a href="">Help</a>
-                                <a href="">FQAs</a>
-                            </div>
-                        </div>
+                        <h1>Padawans Inc.</h1>
                     </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -299,6 +278,7 @@
     </div>
 
     <!-- JavaScript Libraries -->
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/wow/wow.min.js"></script>
@@ -306,9 +286,45 @@
     <script src="lib/waypoints/waypoints.min.js"></script>
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+    <script>   
+        $.post( "{{path('calles')}}")
+        .done(function( data ) {
+            calle = document.getElementById("calle");
+            for (let i=0 ; i<data.length ; i++) {
+                option = document.createElement("option");
+                option.value = data[i]['id'];
+                option.innerText = data[i]['nombre'];
+                calle.appendChild(option);
+            }
+        });
+        $(document).ready(function() {
+            $('.tabla-custom').DataTable({
+                "lengthMenu": [[-1, 10, 25, 50], ["Todos", 10, 25, 50]],
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.11.4/i18n/es_es.json"
+                }
+            });
+        });
+        var url="/sector";
+        //configuracion para biblioteca datatable
+        incidente = document.getElementById("incidente");
+        incidente.addEventListener("change", function (){
+            a = document.createElement("a");
+            a.href = "https://127.0.0.1:8000/sector/"+incidente.value;
+            a.click();
+        });
+        $(document).ready(function() {
+                $('#calle').select2({
+                    theme: 'bootstrap'
+                });
+                spam = document.getElementsByClassName("select2-container--bootstrap");
+                spam[0].classList.add("form-control");
+            });
+            </script>
 </body>
 
 </html>

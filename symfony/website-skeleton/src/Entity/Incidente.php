@@ -11,8 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Incidente
 {
  
-    const motivoString =
-        [1 => 'Bacheo.',
+    private $motivoString =
+        [
+        1 => 'Bacheo.',
         2 => 'Protesta.',
         3 => 'Inundaciones.',
         4 => 'Accidente de Trafico.',
@@ -20,7 +21,7 @@ class Incidente
         6 =>'Otro.'
     ];
 
-    const tempString = [
+    private $tempString = [
         1 => 'Temporal(horas)',
         2 => 'SemiTemporal(dias)',
         3 => 'Permanente(indefinido)'
@@ -162,5 +163,18 @@ class Incidente
 
     public function getStringTemporalidad(){
         return $this->tempString[$this->temporalidad];
+    }
+
+    public function getSector(){
+
+        for ($i=0;$i<count($this->getCalles()->getCalleSectors());$i++){
+            $sectores=$this->getCalles()->getCalleSectors()[$i];
+            if ($sectores->getIdSector()->getAlturaInicial() < $this->altura && 
+            $sectores->getIdSector()->getAlturaFinal()> $this->altura){
+                return $sectores->getIdSector()->__toString();
+                break;
+            }
+        }
+        return 'zona en desarrollo';
     }
 }
