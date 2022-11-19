@@ -31,6 +31,32 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <style>
+        a{
+            text-decoration: none;
+            color:#fff;
+            position: relative;
+            margin-right: 25px;
+            padding: 45px 0;
+            font-family: 'Jost', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--light) !important;
+            outline: none;
+            transition: .5s;
+        }
+        ul{
+            list-style: none;
+        }
+        .item {
+            display:inline-block;
+            padding-left:3px;
+            padding-right:3px;
+        }
+        .listaSector{
+            display:none;
+        }
+    </style>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="51">
@@ -48,24 +74,49 @@
         <div class="container-xxl position-relative p-0" id="home">
             <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
                 <a href="" class="navbar-brand p-0">
-                    <h1 class="m-0">AccesAR</h1>
-                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                    <img src="img/corte3-PhotoRoom.png" alt="Logo" style="wi">
                 </a>
+                <a href="" class="navbar-brand p-0">
+                    <h1 class="m-0">AccesAR</h1>
+                </a>
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto py-0">
-                        <a href="#home" class="nav-item nav-link active">Home</a>
-                        <a href="#about" class="nav-item nav-link">About</a>
-                        <a href="#feature" class="nav-item nav-link">Feature</a>
-                        <a href="#pricing" class="nav-item nav-link">Pricing</a>
-                        <a href="#review" class="nav-item nav-link">Review</a>
-                        <a href="#contact" class="nav-item nav-link">Contact</a>
+                        <ul>
+                            <li class = "item" >
+                                <a href="#home" class="nav-item active">Lista</a>
+                            </li>
+                            <li class = "item" >
+                                <a href="#contact" class="nav-item">Reporta</a>
+                            </li>
+                            <li class = "item">
+                                <select class="form-control" id="incidente" placeholder="Incidente" style="margin-top:5%; background-color: #A152FF; color: #ffff">
+                                    <option value="0">Sectores</option>
+                                    <option value="1">Marco Centro</option>
+                                    <option value="2">Zona Norte</option>
+                                    <option value="3">Zona Sur</option>
+                                    <option value="4">Zona Oeste</option>
+                                    <option value="6">Zona Este</option>
+                                </select>
+                                <!-- <a href="#" class="nav-item nav-link">Sectores</a>
+                                <ul>
+                                    <li><a href="#" class="button-a button-a-background">Centro</a></li>
+                                    <li><a href="toolbarconfigurator/index.html" class="button-a">Marco Centro</a></li>
+                                    <li><a href="toolbarconfigurator/index.html" class="button-a">Zona Norte</a></li>
+                                    <li><a href="toolbarconfigurator/index.html" class="button-a">Zona Sur</a></li>
+                                    <li><a href="toolbarconfigurator/index.html" class="button-a">Zona Oeste</a></li>
+                                    <li><a href="toolbarconfigurator/index.html" class="button-a">Zona Este</a></li>
+                                </ul> -->
+                            </li>
+                        </ul>
                     </div>
-                    <a href="" class="btn btn-primary-gradient rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Start Free Trial</a>
+                    <a href="#" class="btn btn-primary-gradient rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Sobre Nosotros</a>
                 </div>
             </nav>
+            
 
             <div class="container-xxl bg-primary hero-header">
                 <div class="container px-lg-5">
@@ -73,16 +124,12 @@
                         <div class="col-lg-8 text-center text-lg-start">
                             <h1 class="text-white mb-4 animated slideInDown">The Revolutionary App That Helps To Control Your Own Fitness</h1>
                             <p class="text-white pb-3 animated slideInDown">Tempor rebum no at dolore lorem clita rebum rebum ipsum rebum stet dolor sed justo kasd. Ut dolor sed magna dolor sea diam. Sit diam sit justo amet ipsum vero ipsum clita lorem</p>
-                            <a href="" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill me-3 animated slideInLeft">Read More</a>
-                            <a href="" class="btn btn-secondary-gradient py-sm-3 px-4 px-sm-5 rounded-pill animated slideInRight">Contact Us</a>
                         </div>
                         <div class="col-lg-4 d-flex justify-content-center justify-content-lg-end wow fadeInUp" data-wow-delay="0.3s">
                             <div class="owl-carousel screenshot-carousel">
                                 <img class="img-fluid" src="img/screenshot-1.png" alt="">
                                 <img class="img-fluid" src="img/screenshot-2.png" alt="">
                                 <img class="img-fluid" src="img/screenshot-3.png" alt="">
-                                <img class="img-fluid" src="img/screenshot-4.png" alt="">
-                                <img class="img-fluid" src="img/screenshot-5.png" alt="">
                             </div>
                         </div>
                     </div>
@@ -552,14 +599,19 @@
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="number" class="form-control" id="name" placeholder="DNI">
+                                            <input type="number" class="form-control" id="dni" placeholder="DNI" required required>
                                             <label for="name">DNI:</label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6"></div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <select class="form-control" id="calle" placeholder="Calle:">
+                                            <input type="text" class="form-control" id="nombre" placeholder="Nombre" readonly required>
+                                            <label for="name">Nombre:</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <select class="form-control" id="calle" placeholder="Calle:" required name="[incidente][calle]">
                                                 <option value="0">Seleccione calle</option>
                                                 <option value="1">Av. 9 de Julio</option>
                                                 <option value="2">Av. Sarmiento</option>
@@ -574,19 +626,34 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="number" class="form-control" id="calleAltura" placeholder="Altura">
+                                            <input type="number" class="form-control" id="calleAltura" placeholder="Altura" required name="[incidente][altura]">
                                             <label for="calle numero">Altura:</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <select class="form-control" id="incidente" placeholder="Incidente">
+                                            <select class="form-control" id="incidente" placeholder="Incidente" required name="[incidente][motivo]">
                                                 <option value="0">Seleccione incidente</option>
                                                 <option value="1">Incidente 1</option>
                                                 <option value="2">Incidente 2</option>
                                                 <option value="3">Incidente 3</option>
                                                 <option value="4">Incidente 4</option>
                                                 <option value="6">Incidente 5</option>
+                                                <option value="7">Otro</option>
+                                            </select>
+                                            <label for="subject">incidente</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <select class="form-control" id="incidente" placeholder="Incidente" required name="[incidente][tiempo]">
+                                                <option value="0">Tiempo estimado</option>
+                                                <option value="1">Tiempo estimado 1</option>
+                                                <option value="2">Tiempo estimado 2</option>
+                                                <option value="3">Tiempo estimado 3</option>
+                                                <option value="4">Tiempo estimado 4</option>
+                                                <option value="6">Tiempo estimado 5</option>
+                                                <option value="7">Otro</option>
                                             </select>
                                             <label for="subject">incidente</label>
                                         </div>
@@ -594,11 +661,11 @@
                                     <div class="col-12">
                                         <div class="form-floating">
                                             <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px"></textarea>
-                                            <label for="message">Message</label>
+                                            <label for="message">Observaciones (opcional)</label>
                                         </div>
                                     </div>
                                     <div class="col-12 text-center">
-                                        <button class="btn btn-primary-gradient rounded-pill py-3 px-5" type="submit">Send Message</button>
+                                        <button class="btn btn-primary-gradient rounded-pill py-3 px-5" type="submit">Informar</button>
                                     </div>
                                 </div>
                             </form>
