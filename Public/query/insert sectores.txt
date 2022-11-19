@@ -1,0 +1,13 @@
+INSERT INTO `acceder`.`sector`
+(`id`,
+`nombre`,
+`altura_desde`,
+`altura_hasta`)
+VALUES
+(1,'CENTRO',0,500),
+(2,'MACROCENTRO',500,800),
+(3,'ZONA NORTE',801,9999),
+(4,'ZONA OESTE',801,9999),
+(5,'ZONA ESTE',801,9999),
+(6,'ZONA SUR',801,9999)
+;
