@@ -10,6 +10,21 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Incidente
 {
+ 
+    const motivoString =
+        [1 => 'Bacheo.',
+        2 => 'Protesta.',
+        3 => 'Inundaciones.',
+        4 => 'Accidente de Trafico.',
+        5 => 'Obra Pública.',
+        6 =>'Otro.'
+    ];
+
+    const tempString = [
+        1 => 'Temporal(horas)',
+        2 => 'SemiTemporal(dias)',
+        3 => 'Permanente(indefinido)'
+    ];
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -48,7 +63,7 @@ class Incidente
     private $calles;
 
     /**
-     * @ORM\Column(type="bigint", nullable=true)
+     * @ORM\Column(type="smallint", nullable=true)
      */
     private $altura;
 
@@ -129,15 +144,23 @@ class Incidente
         return $this;
     }
 
-    public function getAltura(): ?string
+    public function getAltura(): ?int
     {
         return $this->altura;
     }
 
-    public function setAltura(?string $altura): self
+    public function setAltura(?int $altura): self
     {
         $this->altura = $altura;
 
         return $this;
+    }
+
+    public function getStringMotivo(){
+        return $this->motivoString[$this->motivo];
+    }
+
+    public function getStringTemporalidad(){
+        return $this->tempString[$this->temporalidad];
     }
 }

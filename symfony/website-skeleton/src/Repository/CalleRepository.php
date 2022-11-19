@@ -39,6 +39,14 @@ class CalleRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllSelector(){
+        return $this->createQueryBuilder('c')
+            ->select('c.id , c.nombre')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Calle[] Returns an array of Calle objects
 //     */

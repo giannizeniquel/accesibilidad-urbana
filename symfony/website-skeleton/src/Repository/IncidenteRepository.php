@@ -54,13 +54,42 @@ class IncidenteRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Incidente
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findAllSector($value)
+    {
+        return $this->createQueryBuilder('i')
+            /* ->join('i.calles','calle')
+            ->join('calle.calleSectors','cs')
+            ->join('cs.idSector','sect')
+            ->andWhere('sect.id = :val')
+            ->andWhere('i.altura BETWEEN sect.alturaInicial AND sect.alturaFinal')
+            ->setParameter('val', $value) */
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findCalleNombre($calle){
+
+        return $this->createQueryBuilder('i')
+            ->join('i.calles','calle')
+            ->andWhere('calle.nombre like :val')
+            ->setParameter('val', '%'.$calle.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getExiste($idCalle, $altura){
+
+        return $this->createQueryBuilder('i')
+            ->join('i.calles','calle')
+            ->andWhere('calle.id =  :idCalle')
+            ->andWhere('i.altura BETWEEN  (:altura - 200) AND (:altura + 200)')
+            ->setParameter('idCalle', $idCalle)
+            ->setParameter('altura', $altura)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneORNullResult()
+        ;
+    }
 }
